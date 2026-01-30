@@ -1,0 +1,444 @@
+import React, { useState } from 'react';
+import { 
+  Activity, 
+  Smartphone, 
+  Building2, 
+  ShieldCheck, 
+  Stethoscope, 
+  Pill, 
+  FileText, 
+  Users, 
+  ArrowRight, 
+  Database,
+  MapPin,
+  HeartPulse,
+  MonitorSmartphone,
+  CheckCircle2,
+  Zap,
+  BrainCircuit,
+  Eye,
+  Footprints,
+  Syringe,
+  Scale,
+  BookOpen,
+  ShoppingBag,
+  TrendingUp,
+  Utensils,
+  Dumbbell,       // Fitness
+  Smile,          // Mental Wellbeing
+  Trophy,         // Gamification
+  Video,          // Teleconsultation
+  Microscope,     // Lab Tracking
+  MessageCircle,  // Community
+  Leaf            // Lifestyle
+} from 'lucide-react';
+
+// --- Shared Components ---
+
+const Card = ({ title, children, className = "", onClick, active }) => (
+  <div 
+    onClick={onClick}
+    className={`
+      relative overflow-hidden rounded-3xl p-6 transition-all duration-300 cursor-pointer border flex flex-col
+      ${active 
+        ? 'bg-white shadow-xl scale-[1.02] border-blue-200 ring-2 ring-blue-100 z-10' 
+        : 'bg-white/80 hover:bg-white hover:shadow-lg border-slate-100 hover:border-blue-100'
+      }
+      ${className}
+    `}
+  >
+    {children}
+  </div>
+);
+
+const Badge = ({ children, color = "blue" }) => {
+  const colors = {
+    blue: "bg-blue-100 text-blue-700",
+    emerald: "bg-emerald-100 text-emerald-700",
+    violet: "bg-violet-100 text-violet-700",
+    slate: "bg-slate-100 text-slate-700",
+    orange: "bg-orange-100 text-orange-700"
+  };
+  return (
+    <span className={`px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wide font-bold ${colors[color]}`}>
+      {children}
+    </span>
+  );
+};
+
+// --- Main Page Component ---
+
+export default function LoopEcosystem() {
+  const [activeZone, setActiveZone] = useState('online'); // Default to App view since user is asking about App
+
+  // Content for the Interactive Diagram
+  const diagramContent = {
+    online: {
+      title: "Digital Clinic (The App)",
+      subtitle: "Holistic Care & Continuous Management",
+      desc: "A unified interface combining medical teleconsultation, lifestyle management, and mental wellbeing into one daily journey.",
+      color: "blue",
+      features: [
+        { icon: Video, label: "Teleconsultation", text: "In-app video with Doctors." },
+        { icon: Leaf, label: "Holistic Care", text: "Lifestyle, Mental, & Fitness." },
+        { icon: Microscope, label: "Lab Command", text: "Tracking with Dr. Feedback." },
+        { icon: Trophy, label: "Gamification", text: "Rewards & Community." }
+      ]
+    },
+    offline: {
+      title: "Physical Care Network",
+      subtitle: "Loop Clinic & Partner Specialists",
+      desc: "Physical interventions triggered only when clinically necessary to control complications.",
+      color: "emerald",
+      features: [
+        { icon: Building2, label: "Loop Clinic", text: "Retinopathy, Foot, Acute." },
+        { icon: Stethoscope, label: "Specialists", text: "Referral-only access." },
+        { icon: Pill, label: "Pharmacy", text: "Cost-optimized fulfillment." },
+        { icon: HeartPulse, label: "Diagnostics", text: "Standardized panels." }
+      ]
+    },
+    center: {
+      title: "Clinical Decision Engine",
+      subtitle: "Governance & Logic",
+      desc: "All patient data feeds into a single system to guide decisions and orchestrate partners.",
+      color: "slate",
+      features: [
+        { icon: ShieldCheck, label: "Real-Time Adjustment", text: "Dynamic care plans." },
+        { icon: FileText, label: "Step-Care Protocols", text: "Standardized pathways." },
+        { icon: ArrowRight, label: "Smart Routing", text: "Gatekeeper model." },
+        { icon: Scale, label: "Fixed vs. Personalized", text: "Logic for Payers & Patients." }
+      ]
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-blue-100 scroll-smooth">
+      
+      {/* Navbar */}
+      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-lg flex items-center justify-center text-white font-bold text-xl">L</div>
+            <span className="font-bold text-xl tracking-tight text-slate-900">Loop<span className="text-blue-600 font-light">Health</span></span>
+          </div>
+          <div className="hidden md:flex gap-8 text-sm font-medium text-slate-500">
+            <a href="#ecosystem" className="hover:text-blue-600 transition">Ecosystem</a>
+            <a href="#app-features" className="hover:text-blue-600 transition">App Features</a>
+            <a href="#clinical-model" className="hover:text-blue-600 transition">Clinical Model</a>
+          </div>
+          <button className="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition">
+            Partner Portal
+          </button>
+        </div>
+      </nav>
+
+      {/* HERO SECTION */}
+      <header className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+        <Badge color="blue">Series B Roadmap</Badge>
+        <h1 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-tight">
+          Controlling Metabolic Disease <br/>
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+            Through a Clinic-Led Journey
+          </span>
+        </h1>
+        <p className="mt-6 text-xl text-slate-600 max-w-2xl mx-auto">
+          A fixed yet personalized online-to-offline care pathway developed by Loop to control HbA1c early, manage complications only when necessary, and contain long-term costs.
+        </p>
+      </header>
+
+      {/* SECTION 1: INTERACTIVE ECOSYSTEM */}
+      <section id="ecosystem" className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div className="relative">
+          {/* Background Decor */}
+          <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-white rounded-[3rem] -z-10" />
+          
+          {/* Grid Layout */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[600px]">
+            
+            {/* LEFT: DIGITAL CLINIC (APP) */}
+            <div className="lg:col-span-4 flex flex-col">
+              <Card 
+                active={activeZone === 'online'}
+                onClick={() => setActiveZone('online')}
+                className="h-full border-l-4 border-l-blue-400 group"
+              >
+                <div className="mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Smartphone size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-900">In the App</h3>
+                  <p className="text-slate-500 font-medium text-sm mt-1">Holistic Care & Telemedicine</p>
+                </div>
+                {/* Abstract UI Preview */}
+                <div className="mt-auto relative mx-auto w-full max-w-[200px] opacity-90 group-hover:opacity-100 transition-opacity">
+                   <div className="bg-slate-900 rounded-[1.5rem] p-2 shadow-xl border-2 border-slate-200">
+                      <div className="bg-white rounded-[1rem] h-32 w-full relative overflow-hidden">
+                         <div className="bg-blue-600 h-8 w-full flex items-center justify-center">
+                            <Video size={12} className="text-white/80" />
+                         </div>
+                         <div className="p-2 space-y-2">
+                            <div className="flex gap-1">
+                               <div className="h-6 w-6 rounded-full bg-slate-100"></div>
+                               <div className="h-6 w-full bg-slate-50 rounded text-[8px] p-1 text-slate-400">Dr. Sarah calling...</div>
+                            </div>
+                            <div className="h-8 w-full bg-blue-50 rounded flex items-center justify-center text-xs text-blue-600 font-bold">Plan: Active</div>
+                         </div>
+                      </div>
+                   </div>
+                </div>
+              </Card>
+            </div>
+
+            {/* CENTER: GOVERNANCE HUB */}
+            <div className="lg:col-span-4 flex flex-col relative">
+              <Card 
+                active={activeZone === 'center'}
+                onClick={() => setActiveZone('center')}
+                className="h-full flex flex-col items-center text-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 text-white border-none ring-4 ring-slate-100 shadow-2xl z-10"
+              >
+                <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mb-6 backdrop-blur-sm border border-white/10">
+                  <BrainCircuit size={32} className="text-cyan-400" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2">Central Clinical<br/>Decision Engine</h3>
+                <p className="text-slate-400 text-sm mb-8 px-4">All data feeds into a single system to guide decisions.</p>
+                <div className="mt-auto w-full border-t border-white/10 pt-4">
+                    <div className="flex justify-between text-[10px] uppercase tracking-wider font-semibold text-slate-500">
+                        <span>Payer Logic</span>
+                        <span>Patient Care</span>
+                    </div>
+                </div>
+              </Card>
+            </div>
+
+            {/* RIGHT: PHYSICAL CARE */}
+            <div className="lg:col-span-4 flex flex-col">
+              <Card 
+                active={activeZone === 'offline'}
+                onClick={() => setActiveZone('offline')}
+                className="h-full border-r-4 border-r-emerald-400 group"
+              >
+                <div className="mb-6">
+                  <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Building2 size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-slate-900">Physical Care</h3>
+                  <p className="text-slate-500 font-medium text-sm mt-1">Loop Clinic & Partners</p>
+                </div>
+                <div className="mt-auto space-y-2">
+                   <div className="bg-emerald-50 p-2 rounded-lg flex items-center gap-2">
+                      <Eye size={16} className="text-emerald-600" />
+                      <span className="text-xs font-bold text-slate-700">Retinopathy Scans</span>
+                   </div>
+                   <div className="bg-slate-50 p-2 rounded-lg flex items-center gap-2">
+                      <Building2 size={16} className="text-slate-500" />
+                      <span className="text-xs font-bold text-slate-500">Partner Hospitals</span>
+                   </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+
+          {/* Dynamic Details Block */}
+          <div className="mt-8 bg-white rounded-3xl p-8 shadow-xl border border-slate-100 animate-in fade-in slide-in-from-bottom-4">
+             <div className="flex flex-col md:flex-row gap-8">
+                <div className="md:w-1/3">
+                   <h2 className="text-2xl font-bold text-slate-900 mb-2">{diagramContent[activeZone].title}</h2>
+                   <p className="text-slate-500">{diagramContent[activeZone].desc}</p>
+                </div>
+                <div className="md:w-2/3 grid grid-cols-2 gap-4">
+                   {diagramContent[activeZone].features.map((f, i) => (
+                      <div key={i} className="flex gap-3 items-start p-3 rounded-xl bg-slate-50 border border-slate-100">
+                         <f.icon size={20} className={activeZone === 'online' ? 'text-blue-500' : activeZone === 'offline' ? 'text-emerald-500' : 'text-slate-600'} />
+                         <div>
+                            <div className="font-bold text-sm text-slate-900">{f.label}</div>
+                            <div className="text-xs text-slate-500">{f.text}</div>
+                         </div>
+                      </div>
+                   ))}
+                </div>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 2: APP FEATURE DEEP DIVE (EXPANDED) */}
+      <section id="app-features" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+             <Badge color="blue">Holistic Platform</Badge>
+             <h2 className="mt-4 text-3xl font-bold text-slate-900">Your Complete Metabolic Toolkit</h2>
+             <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
+               A comprehensive digital system integrating lifestyle, medication, mental wellbeing, and fitness—supercharged by gamification and community.
+             </p>
+          </div>
+
+          {/* 4x2 GRID LAYOUT FOR APP MODULES */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+             
+             {/* 1. Teleconsultation */}
+             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
+                <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-4">
+                   <Video size={20} />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Teleconsultation</h3>
+                <p className="text-sm text-slate-600">
+                   Instant in-app video calls with your dedicated GP and Care Team. No driving, no waiting rooms.
+                </p>
+             </div>
+
+             {/* 2. Fitness Plans */}
+             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
+                <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600 mb-4">
+                   <Dumbbell size={20} />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Fitness Plans</h3>
+                <p className="text-sm text-slate-600">
+                   Personalized movement guides adapted to your mobility level, from chair yoga to high-intensity interval training.
+                </p>
+             </div>
+
+             {/* 3. Mental Wellbeing */}
+             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
+                <div className="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center text-violet-600 mb-4">
+                   <Smile size={20} />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Mental Wellbeing</h3>
+                <p className="text-sm text-slate-600">
+                   Stress management modules and psychological support to prevent diabetes burnout and anxiety.
+                </p>
+             </div>
+
+             {/* 4. Gamification */}
+             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
+                <div className="w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center text-yellow-600 mb-4">
+                   <Trophy size={20} />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Gamification</h3>
+                <p className="text-sm text-slate-600">
+                   Earn badges, streaks, and rewards for logging meals, hitting glucose targets, and completing lessons.
+                </p>
+             </div>
+
+             {/* 5. Community */}
+             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
+                <div className="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center text-pink-600 mb-4">
+                   <MessageCircle size={20} />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Community</h3>
+                <p className="text-sm text-slate-600">
+                   Join squads with similar health goals. Share recipes, celebrate wins, and find accountability partners.
+                </p>
+             </div>
+
+             {/* 6. Advanced Lab Tracking */}
+             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
+                <div className="w-10 h-10 bg-cyan-100 rounded-xl flex items-center justify-center text-cyan-600 mb-4">
+                   <Microscope size={20} />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Lab Command</h3>
+                <p className="text-sm text-slate-600">
+                   Visualizes your bloodwork trends (HbA1c, Lipids) over time with specific, annotated feedback from your doctor.
+                </p>
+             </div>
+
+             {/* 7. Medication Management */}
+             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
+                <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 mb-4">
+                   <Pill size={20} />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Medication</h3>
+                <p className="text-sm text-slate-600">
+                   Digital prescription wallet, adherence reminders, and one-tap refills delivered to your door.
+                </p>
+             </div>
+
+             {/* 8. Lifestyle Logging */}
+             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
+                <div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4">
+                   <Utensils size={20} />
+                </div>
+                <h3 className="font-bold text-slate-900 mb-2">Smart Lifestyle</h3>
+                <p className="text-sm text-slate-600">
+                   Log food, sleep, and activity. Our AI correlates these choices with your blood sugar spikes for instant learning.
+                </p>
+             </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 3: CLINICAL MODEL & OUTCOMES */}
+      <section id="clinical-model" className="py-20 bg-slate-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+             <div>
+                <Badge color="blue">The Outcome</Badge>
+                <h2 className="mt-4 text-3xl font-bold text-white leading-tight">
+                   From "Sick Care" to <br/>Managed Outcomes.
+                </h2>
+                <p className="mt-6 text-slate-400 text-lg leading-relaxed">
+                   By combining digital daily management with governed physical care, we shift the curve on metabolic disease progression.
+                </p>
+                
+                <div className="mt-8 space-y-6">
+                   <div className="flex gap-4">
+                      <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-emerald-400 font-bold text-lg">-20%</div>
+                      <div>
+                         <h4 className="font-bold text-white">Complication Reduction</h4>
+                         <p className="text-sm text-slate-400">Fewer secondary issues (eyes, kidneys, feet) via early control.</p>
+                      </div>
+                   </div>
+                   <div className="flex gap-4">
+                      <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-blue-400 font-bold text-lg">50%</div>
+                      <div>
+                         <h4 className="font-bold text-white">Lower Utilization Costs</h4>
+                         <p className="text-sm text-slate-400">Reduced hospital & specialist visits via better management.</p>
+                      </div>
+                   </div>
+                </div>
+             </div>
+
+             <div className="bg-white/5 rounded-3xl p-8 border border-white/10">
+                <h3 className="text-xl font-bold text-white mb-6">Target Care Ecosystem</h3>
+                <div className="space-y-4">
+                   <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5">
+                      <div className="flex items-center gap-3">
+                         <Activity size={20} className="text-blue-400" />
+                         <span className="font-medium">Diabetes & Prediabetes</span>
+                      </div>
+                      <span className="text-xs font-bold bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded">LIVE</span>
+                   </div>
+                   <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 opacity-75">
+                      <div className="flex items-center gap-3">
+                         <HeartPulse size={20} className="text-slate-400" />
+                         <span className="font-medium">Hypertension & Lipids</span>
+                      </div>
+                      <span className="text-xs font-bold bg-slate-700 text-slate-400 px-2 py-1 rounded">NEXT PHASE</span>
+                   </div>
+                   <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 opacity-50">
+                      <div className="flex items-center gap-3">
+                         <Scale size={20} className="text-slate-400" />
+                         <span className="font-medium">Obesity & Weight</span>
+                      </div>
+                      <span className="text-xs font-bold bg-slate-700 text-slate-400 px-2 py-1 rounded">ROADMAP</span>
+                   </div>
+                </div>
+             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-slate-950 py-12 text-slate-500 text-sm border-t border-slate-900">
+        <div className="max-w-7xl mx-auto px-4 text-center">
+           <p className="mb-4">© 2026 PT Aplikasi Loop Health. Integrated Metabolic Clinic.</p>
+           <div className="flex justify-center gap-6">
+              <span className="hover:text-slate-300 cursor-pointer">Governance Framework</span>
+              <span className="hover:text-slate-300 cursor-pointer">Partner Specialists</span>
+              <span className="hover:text-slate-300 cursor-pointer">Clinic Locations</span>
+           </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
