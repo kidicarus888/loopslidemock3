@@ -66,10 +66,10 @@ const Badge = ({ children, color = "blue" }) => {
   );
 };
 
-// --- Main Page Component ---
+// --- Main Application Component ---
 
-export default function LoopEcosystem() {
-  const [activeZone, setActiveZone] = useState('online'); // Default to App view since user is asking about App
+export default function App() {
+  const [activeZone, setActiveZone] = useState('online'); // Default to App view
 
   // Content for the Interactive Diagram
   const diagramContent = {
