@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loop Ecosystem Strategy Map</title>
     
-    <!-- Tailwind CSS: Handles all styling -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Lucide Icons: Handles the visuals (User, Smartphone, Pills, etc.) -->
-    <!-- Using the UMD build for maximum browser compatibility -->
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <!-- Lucide Icons (Standard Production Build) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -18,29 +17,32 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         
-        /* Smooth horizontal scrolling for the slide layout */
+        /* Custom scrollbar styling */
         .overflow-x-auto::-webkit-scrollbar {
-            height: 8px;
+            height: 12px;
         }
         .overflow-x-auto::-webkit-scrollbar-track {
-            background: #f1f5f9; 
+            background: #e2e8f0;
+            border-radius: 8px;
         }
         .overflow-x-auto::-webkit-scrollbar-thumb {
-            background: #cbd5e1; 
-            border-radius: 4px;
+            background: #94a3b8; 
+            border-radius: 8px;
+            border: 2px solid #e2e8f0;
         }
         .overflow-x-auto::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8; 
+            background: #64748b; 
         }
     </style>
 </head>
-<body class="bg-slate-100 text-slate-800 min-h-screen flex items-center justify-center p-4">
+<body class="bg-slate-100 text-slate-800 min-h-screen p-4 lg:p-8">
 
-    <!-- Scroll Container: Ensures you can scroll sideways on smaller screens -->
-    <div class="w-full h-full overflow-x-auto">
+    <!-- Scroll Container -->
+    <!-- Removed 'flex center' from body to prevent vertical clipping on small screens -->
+    <div class="w-full overflow-x-auto pb-6">
         
-        <!-- Main Slide Container: Fixed width to maintain the presentation aspect ratio -->
-        <div class="min-w-[1200px] max-w-[1400px] mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-slate-200 my-8">
+        <!-- Main Slide Container -->
+        <div class="min-w-[1200px] max-w-[1400px] mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-slate-200">
             
             <!-- HEADER SECTION -->
             <div class="bg-slate-900 px-10 py-8 text-white relative overflow-hidden">
