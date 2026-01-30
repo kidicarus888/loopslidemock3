@@ -1,444 +1,374 @@
-import React, { useState } from 'react';
-import { 
-  Activity, 
-  Smartphone, 
-  Building2, 
-  ShieldCheck, 
-  Stethoscope, 
-  Pill, 
-  FileText, 
-  Users, 
-  ArrowRight, 
-  Database,
-  MapPin,
-  HeartPulse,
-  MonitorSmartphone,
-  CheckCircle2,
-  Zap,
-  BrainCircuit,
-  Eye,
-  Footprints,
-  Syringe,
-  Scale,
-  BookOpen,
-  ShoppingBag,
-  TrendingUp,
-  Utensils,
-  Dumbbell,       // Fitness
-  Smile,          // Mental Wellbeing
-  Trophy,         // Gamification
-  Video,          // Teleconsultation
-  Microscope,     // Lab Tracking
-  MessageCircle,  // Community
-  Leaf            // Lifestyle
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loop Ecosystem Strategy Map</title>
+    
+    <!-- Tailwind CSS (via CDN for standalone use) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Lucide Icons (via CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Custom scrollbar for horizontal scrolling if needed */
+        .overflow-x-auto::-webkit-scrollbar {
+            height: 8px;
+        }
+        .overflow-x-auto::-webkit-scrollbar-track {
+            background: #f1f5f9; 
+        }
+        .overflow-x-auto::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        .overflow-x-auto::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
+        }
+    </style>
+</head>
+<body class="bg-slate-100 text-slate-800 min-h-screen flex items-center justify-center p-4">
 
-// --- Shared Components ---
-
-const Card = ({ title, children, className = "", onClick, active }) => (
-  <div 
-    onClick={onClick}
-    className={`
-      relative overflow-hidden rounded-3xl p-6 transition-all duration-300 cursor-pointer border flex flex-col
-      ${active 
-        ? 'bg-white shadow-xl scale-[1.02] border-blue-200 ring-2 ring-blue-100 z-10' 
-        : 'bg-white/80 hover:bg-white hover:shadow-lg border-slate-100 hover:border-blue-100'
-      }
-      ${className}
-    `}
-  >
-    {children}
-  </div>
-);
-
-const Badge = ({ children, color = "blue" }) => {
-  const colors = {
-    blue: "bg-blue-100 text-blue-700",
-    emerald: "bg-emerald-100 text-emerald-700",
-    violet: "bg-violet-100 text-violet-700",
-    slate: "bg-slate-100 text-slate-700",
-    orange: "bg-orange-100 text-orange-700"
-  };
-  return (
-    <span className={`px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-wide font-bold ${colors[color]}`}>
-      {children}
-    </span>
-  );
-};
-
-// --- Main Application Component ---
-
-export default function App() {
-  const [activeZone, setActiveZone] = useState('online'); // Default to App view
-
-  // Content for the Interactive Diagram
-  const diagramContent = {
-    online: {
-      title: "Digital Clinic (The App)",
-      subtitle: "Holistic Care & Continuous Management",
-      desc: "A unified interface combining medical teleconsultation, lifestyle management, and mental wellbeing into one daily journey.",
-      color: "blue",
-      features: [
-        { icon: Video, label: "Teleconsultation", text: "In-app video with Doctors." },
-        { icon: Leaf, label: "Holistic Care", text: "Lifestyle, Mental, & Fitness." },
-        { icon: Microscope, label: "Lab Command", text: "Tracking with Dr. Feedback." },
-        { icon: Trophy, label: "Gamification", text: "Rewards & Community." }
-      ]
-    },
-    offline: {
-      title: "Physical Care Network",
-      subtitle: "Loop Clinic & Partner Specialists",
-      desc: "Physical interventions triggered only when clinically necessary to control complications.",
-      color: "emerald",
-      features: [
-        { icon: Building2, label: "Loop Clinic", text: "Retinopathy, Foot, Acute." },
-        { icon: Stethoscope, label: "Specialists", text: "Referral-only access." },
-        { icon: Pill, label: "Pharmacy", text: "Cost-optimized fulfillment." },
-        { icon: HeartPulse, label: "Diagnostics", text: "Standardized panels." }
-      ]
-    },
-    center: {
-      title: "Clinical Decision Engine",
-      subtitle: "Governance & Logic",
-      desc: "All patient data feeds into a single system to guide decisions and orchestrate partners.",
-      color: "slate",
-      features: [
-        { icon: ShieldCheck, label: "Real-Time Adjustment", text: "Dynamic care plans." },
-        { icon: FileText, label: "Step-Care Protocols", text: "Standardized pathways." },
-        { icon: ArrowRight, label: "Smart Routing", text: "Gatekeeper model." },
-        { icon: Scale, label: "Fixed vs. Personalized", text: "Logic for Payers & Patients." }
-      ]
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-blue-100 scroll-smooth">
-      
-      {/* Navbar */}
-      <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-tr from-blue-600 to-cyan-400 rounded-lg flex items-center justify-center text-white font-bold text-xl">L</div>
-            <span className="font-bold text-xl tracking-tight text-slate-900">Loop<span className="text-blue-600 font-light">Health</span></span>
-          </div>
-          <div className="hidden md:flex gap-8 text-sm font-medium text-slate-500">
-            <a href="#ecosystem" className="hover:text-blue-600 transition">Ecosystem</a>
-            <a href="#app-features" className="hover:text-blue-600 transition">App Features</a>
-            <a href="#clinical-model" className="hover:text-blue-600 transition">Clinical Model</a>
-          </div>
-          <button className="bg-slate-900 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-800 transition">
-            Partner Portal
-          </button>
-        </div>
-      </nav>
-
-      {/* HERO SECTION */}
-      <header className="pt-20 pb-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
-        <Badge color="blue">Series B Roadmap</Badge>
-        <h1 className="mt-6 text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-slate-900 leading-tight">
-          Controlling Metabolic Disease <br/>
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
-            Through a Clinic-Led Journey
-          </span>
-        </h1>
-        <p className="mt-6 text-xl text-slate-600 max-w-2xl mx-auto">
-          A fixed yet personalized online-to-offline care pathway developed by Loop to control HbA1c early, manage complications only when necessary, and contain long-term costs.
-        </p>
-      </header>
-
-      {/* SECTION 1: INTERACTIVE ECOSYSTEM */}
-      <section id="ecosystem" className="py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="relative">
-          {/* Background Decor */}
-          <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-white rounded-[3rem] -z-10" />
-          
-          {/* Grid Layout */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch min-h-[600px]">
+    <!-- Scroll Container for Small Screens -->
+    <div class="w-full h-full overflow-x-auto">
+        
+        <!-- Main Container (Fixed Minimum Width to maintain "Slide" layout) -->
+        <div class="min-w-[1200px] max-w-[1400px] mx-auto bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-slate-200 my-8">
             
-            {/* LEFT: DIGITAL CLINIC (APP) */}
-            <div className="lg:col-span-4 flex flex-col">
-              <Card 
-                active={activeZone === 'online'}
-                onClick={() => setActiveZone('online')}
-                className="h-full border-l-4 border-l-blue-400 group"
-              >
-                <div className="mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <Smartphone size={24} />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900">In the App</h3>
-                  <p className="text-slate-500 font-medium text-sm mt-1">Holistic Care & Telemedicine</p>
-                </div>
-                {/* Abstract UI Preview */}
-                <div className="mt-auto relative mx-auto w-full max-w-[200px] opacity-90 group-hover:opacity-100 transition-opacity">
-                   <div className="bg-slate-900 rounded-[1.5rem] p-2 shadow-xl border-2 border-slate-200">
-                      <div className="bg-white rounded-[1rem] h-32 w-full relative overflow-hidden">
-                         <div className="bg-blue-600 h-8 w-full flex items-center justify-center">
-                            <Video size={12} className="text-white/80" />
-                         </div>
-                         <div className="p-2 space-y-2">
-                            <div className="flex gap-1">
-                               <div className="h-6 w-6 rounded-full bg-slate-100"></div>
-                               <div className="h-6 w-full bg-slate-50 rounded text-[8px] p-1 text-slate-400">Dr. Sarah calling...</div>
-                            </div>
-                            <div className="h-8 w-full bg-blue-50 rounded flex items-center justify-center text-xs text-blue-600 font-bold">Plan: Active</div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-              </Card>
-            </div>
-
-            {/* CENTER: GOVERNANCE HUB */}
-            <div className="lg:col-span-4 flex flex-col relative">
-              <Card 
-                active={activeZone === 'center'}
-                onClick={() => setActiveZone('center')}
-                className="h-full flex flex-col items-center text-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 text-white border-none ring-4 ring-slate-100 shadow-2xl z-10"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mb-6 backdrop-blur-sm border border-white/10">
-                  <BrainCircuit size={32} className="text-cyan-400" />
-                </div>
-                <h3 className="text-2xl font-bold mb-2">Central Clinical<br/>Decision Engine</h3>
-                <p className="text-slate-400 text-sm mb-8 px-4">All data feeds into a single system to guide decisions.</p>
-                <div className="mt-auto w-full border-t border-white/10 pt-4">
-                    <div className="flex justify-between text-[10px] uppercase tracking-wider font-semibold text-slate-500">
-                        <span>Payer Logic</span>
-                        <span>Patient Care</span>
+            <!-- HEADER -->
+            <div class="bg-slate-900 px-10 py-8 text-white relative overflow-hidden">
+                <div class="relative z-10 flex justify-between items-center gap-6">
+                    <div>
+                        <div class="flex items-center gap-3 mb-2">
+                            <div class="w-10 h-10 bg-gradient-to-tr from-blue-500 to-cyan-400 rounded-xl flex items-center justify-center text-white font-bold text-2xl">L</div>
+                            <h1 class="text-4xl font-bold tracking-tight">Clinic Governs, Partners Execute</h1>
+                        </div>
+                        <p class="text-slate-300 max-w-2xl text-lg opacity-90">
+                            A unified metabolic care system. The <span class="text-white font-semibold">App</span> handles daily lifestyle, the <span class="text-emerald-300 font-semibold">Partners</span> handle physical care, and the <span class="text-cyan-300 font-semibold">Hub</span> governs every decision.
+                        </p>
+                    </div>
+                    
+                    <div class="bg-white/10 backdrop-blur-md px-5 py-2 rounded-full border border-white/20 text-right">
+                        <div class="text-xs font-bold uppercase tracking-widest text-cyan-300">Strategy Map</div>
+                        <div class="text-white font-bold">Series B Roadmap</div>
                     </div>
                 </div>
-              </Card>
-            </div>
-
-            {/* RIGHT: PHYSICAL CARE */}
-            <div className="lg:col-span-4 flex flex-col">
-              <Card 
-                active={activeZone === 'offline'}
-                onClick={() => setActiveZone('offline')}
-                className="h-full border-r-4 border-r-emerald-400 group"
-              >
-                <div className="mb-6">
-                  <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                    <Building2 size={24} />
-                  </div>
-                  <h3 className="text-2xl font-bold text-slate-900">Physical Care</h3>
-                  <p className="text-slate-500 font-medium text-sm mt-1">Loop Clinic & Partners</p>
-                </div>
-                <div className="mt-auto space-y-2">
-                   <div className="bg-emerald-50 p-2 rounded-lg flex items-center gap-2">
-                      <Eye size={16} className="text-emerald-600" />
-                      <span className="text-xs font-bold text-slate-700">Retinopathy Scans</span>
-                   </div>
-                   <div className="bg-slate-50 p-2 rounded-lg flex items-center gap-2">
-                      <Building2 size={16} className="text-slate-500" />
-                      <span className="text-xs font-bold text-slate-500">Partner Hospitals</span>
-                   </div>
-                </div>
-              </Card>
-            </div>
-          </div>
-
-          {/* Dynamic Details Block */}
-          <div className="mt-8 bg-white rounded-3xl p-8 shadow-xl border border-slate-100 animate-in fade-in slide-in-from-bottom-4">
-             <div className="flex flex-col md:flex-row gap-8">
-                <div className="md:w-1/3">
-                   <h2 className="text-2xl font-bold text-slate-900 mb-2">{diagramContent[activeZone].title}</h2>
-                   <p className="text-slate-500">{diagramContent[activeZone].desc}</p>
-                </div>
-                <div className="md:w-2/3 grid grid-cols-2 gap-4">
-                   {diagramContent[activeZone].features.map((f, i) => (
-                      <div key={i} className="flex gap-3 items-start p-3 rounded-xl bg-slate-50 border border-slate-100">
-                         <f.icon size={20} className={activeZone === 'online' ? 'text-blue-500' : activeZone === 'offline' ? 'text-emerald-500' : 'text-slate-600'} />
-                         <div>
-                            <div className="font-bold text-sm text-slate-900">{f.label}</div>
-                            <div className="text-xs text-slate-500">{f.text}</div>
-                         </div>
-                      </div>
-                   ))}
-                </div>
-             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 2: APP FEATURE DEEP DIVE (EXPANDED) */}
-      <section id="app-features" className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-             <Badge color="blue">Holistic Platform</Badge>
-             <h2 className="mt-4 text-3xl font-bold text-slate-900">Your Complete Metabolic Toolkit</h2>
-             <p className="mt-4 text-lg text-slate-600 max-w-2xl mx-auto">
-               A comprehensive digital system integrating lifestyle, medication, mental wellbeing, and fitness—supercharged by gamification and community.
-             </p>
-          </div>
-
-          {/* 4x2 GRID LAYOUT FOR APP MODULES */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-             
-             {/* 1. Teleconsultation */}
-             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
-                <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-4">
-                   <Video size={20} />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">Teleconsultation</h3>
-                <p className="text-sm text-slate-600">
-                   Instant in-app video calls with your dedicated GP and Care Team. No driving, no waiting rooms.
-                </p>
-             </div>
-
-             {/* 2. Fitness Plans */}
-             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
-                <div className="w-10 h-10 bg-orange-100 rounded-xl flex items-center justify-center text-orange-600 mb-4">
-                   <Dumbbell size={20} />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">Fitness Plans</h3>
-                <p className="text-sm text-slate-600">
-                   Personalized movement guides adapted to your mobility level, from chair yoga to high-intensity interval training.
-                </p>
-             </div>
-
-             {/* 3. Mental Wellbeing */}
-             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
-                <div className="w-10 h-10 bg-violet-100 rounded-xl flex items-center justify-center text-violet-600 mb-4">
-                   <Smile size={20} />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">Mental Wellbeing</h3>
-                <p className="text-sm text-slate-600">
-                   Stress management modules and psychological support to prevent diabetes burnout and anxiety.
-                </p>
-             </div>
-
-             {/* 4. Gamification */}
-             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
-                <div className="w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center text-yellow-600 mb-4">
-                   <Trophy size={20} />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">Gamification</h3>
-                <p className="text-sm text-slate-600">
-                   Earn badges, streaks, and rewards for logging meals, hitting glucose targets, and completing lessons.
-                </p>
-             </div>
-
-             {/* 5. Community */}
-             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
-                <div className="w-10 h-10 bg-pink-100 rounded-xl flex items-center justify-center text-pink-600 mb-4">
-                   <MessageCircle size={20} />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">Community</h3>
-                <p className="text-sm text-slate-600">
-                   Join squads with similar health goals. Share recipes, celebrate wins, and find accountability partners.
-                </p>
-             </div>
-
-             {/* 6. Advanced Lab Tracking */}
-             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
-                <div className="w-10 h-10 bg-cyan-100 rounded-xl flex items-center justify-center text-cyan-600 mb-4">
-                   <Microscope size={20} />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">Lab Command</h3>
-                <p className="text-sm text-slate-600">
-                   Visualizes your bloodwork trends (HbA1c, Lipids) over time with specific, annotated feedback from your doctor.
-                </p>
-             </div>
-
-             {/* 7. Medication Management */}
-             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
-                <div className="w-10 h-10 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 mb-4">
-                   <Pill size={20} />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">Medication</h3>
-                <p className="text-sm text-slate-600">
-                   Digital prescription wallet, adherence reminders, and one-tap refills delivered to your door.
-                </p>
-             </div>
-
-             {/* 8. Lifestyle Logging */}
-             <div className="bg-slate-50 rounded-2xl p-6 border border-slate-100 hover:border-blue-200 hover:shadow-lg transition-all">
-                <div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center text-indigo-600 mb-4">
-                   <Utensils size={20} />
-                </div>
-                <h3 className="font-bold text-slate-900 mb-2">Smart Lifestyle</h3>
-                <p className="text-sm text-slate-600">
-                   Log food, sleep, and activity. Our AI correlates these choices with your blood sugar spikes for instant learning.
-                </p>
-             </div>
-
-          </div>
-        </div>
-      </section>
-
-      {/* SECTION 3: CLINICAL MODEL & OUTCOMES */}
-      <section id="clinical-model" className="py-20 bg-slate-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-             <div>
-                <Badge color="blue">The Outcome</Badge>
-                <h2 className="mt-4 text-3xl font-bold text-white leading-tight">
-                   From "Sick Care" to <br/>Managed Outcomes.
-                </h2>
-                <p className="mt-6 text-slate-400 text-lg leading-relaxed">
-                   By combining digital daily management with governed physical care, we shift the curve on metabolic disease progression.
-                </p>
                 
-                <div className="mt-8 space-y-6">
-                   <div className="flex gap-4">
-                      <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-emerald-400 font-bold text-lg">-20%</div>
-                      <div>
-                         <h4 className="font-bold text-white">Complication Reduction</h4>
-                         <p className="text-sm text-slate-400">Fewer secondary issues (eyes, kidneys, feet) via early control.</p>
-                      </div>
-                   </div>
-                   <div className="flex gap-4">
-                      <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center text-blue-400 font-bold text-lg">50%</div>
-                      <div>
-                         <h4 className="font-bold text-white">Lower Utilization Costs</h4>
-                         <p className="text-sm text-slate-400">Reduced hospital & specialist visits via better management.</p>
-                      </div>
-                   </div>
-                </div>
-             </div>
+                <!-- Background Decor -->
+                <div class="absolute top-0 right-0 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+            </div>
 
-             <div className="bg-white/5 rounded-3xl p-8 border border-white/10">
-                <h3 className="text-xl font-bold text-white mb-6">Target Care Ecosystem</h3>
-                <div className="space-y-4">
-                   <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5">
-                      <div className="flex items-center gap-3">
-                         <Activity size={20} className="text-blue-400" />
-                         <span className="font-medium">Diabetes & Prediabetes</span>
-                      </div>
-                      <span className="text-xs font-bold bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded">LIVE</span>
-                   </div>
-                   <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 opacity-75">
-                      <div className="flex items-center gap-3">
-                         <HeartPulse size={20} className="text-slate-400" />
-                         <span className="font-medium">Hypertension & Lipids</span>
-                      </div>
-                      <span className="text-xs font-bold bg-slate-700 text-slate-400 px-2 py-1 rounded">NEXT PHASE</span>
-                   </div>
-                   <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 opacity-50">
-                      <div className="flex items-center gap-3">
-                         <Scale size={20} className="text-slate-400" />
-                         <span className="font-medium">Obesity & Weight</span>
-                      </div>
-                      <span className="text-xs font-bold bg-slate-700 text-slate-400 px-2 py-1 rounded">ROADMAP</span>
-                   </div>
-                </div>
-             </div>
-          </div>
-        </div>
-      </section>
+            <!-- DASHBOARD CONTENT -->
+            <div class="p-10 bg-slate-50/50">
+                <div class="grid grid-cols-12 gap-6 items-stretch">
 
-      {/* Footer */}
-      <footer className="bg-slate-950 py-12 text-slate-500 text-sm border-t border-slate-900">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-           <p className="mb-4">© 2026 PT Aplikasi Loop Health. Integrated Metabolic Clinic.</p>
-           <div className="flex justify-center gap-6">
-              <span className="hover:text-slate-300 cursor-pointer">Governance Framework</span>
-              <span className="hover:text-slate-300 cursor-pointer">Partner Specialists</span>
-              <span className="hover:text-slate-300 cursor-pointer">Clinic Locations</span>
-           </div>
+                    <!-- COLUMN 1: DIGITAL TOOL (APP) -->
+                    <div class="col-span-4 flex flex-col gap-4">
+                        <div class="flex items-center gap-2 mb-1 pl-1">
+                            <div class="h-2.5 w-2.5 rounded-full bg-blue-500 ring-4 ring-blue-100"></div>
+                            <h2 class="text-sm font-bold text-slate-500 uppercase tracking-wide">Daily Management (The App)</h2>
+                        </div>
+                        
+                        <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex-1 border-t-4 border-t-blue-500 relative group hover:shadow-lg transition-all duration-300">
+                            <div class="absolute top-0 right-0 bg-blue-50 px-3 py-1 rounded-bl-xl text-[10px] font-bold text-blue-600">Patient Interface</div>
+                            
+                            <div class="mb-6 flex gap-4 items-center">
+                                <div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-blue-600 shrink-0">
+                                    <i data-lucide="smartphone" class="w-7 h-7"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-slate-900">Digital Lifestyle Tool</h3>
+                                    <p class="text-xs text-slate-500">Holistic Care • 24/7 Access</p>
+                                </div>
+                            </div>
+
+                            <!-- App Grid -->
+                            <div class="grid grid-cols-2 gap-3">
+                                <!-- GP Appointments -->
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-blue-200 transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="p-1.5 rounded-lg bg-blue-100 text-blue-600"><i data-lucide="calendar-check" class="w-3.5 h-3.5"></i></div>
+                                        <span class="text-xs font-semibold text-slate-700">GP Appointments</span>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 leading-tight">Schedule video calls or chat instantly.</p>
+                                </div>
+
+                                <!-- Curriculum -->
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-violet-200 transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="p-1.5 rounded-lg bg-violet-100 text-violet-600"><i data-lucide="book-open" class="w-3.5 h-3.5"></i></div>
+                                        <span class="text-xs font-semibold text-slate-700">Curriculum</span>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 leading-tight">Structured lessons (e.g. "Diabetes 101").</p>
+                                </div>
+
+                                <!-- Smart Logistics -->
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-emerald-200 transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="p-1.5 rounded-lg bg-emerald-100 text-emerald-600"><i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i></div>
+                                        <span class="text-xs font-semibold text-slate-700">Smart Logistics</span>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 leading-tight">1-tap free strips & lancet requests.</p>
+                                </div>
+
+                                <!-- Nutrition -->
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-orange-200 transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="p-1.5 rounded-lg bg-orange-100 text-orange-600"><i data-lucide="utensils" class="w-3.5 h-3.5"></i></div>
+                                        <span class="text-xs font-semibold text-slate-700">Nutrition</span>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 leading-tight">Recipes & smart food logging.</p>
+                                </div>
+
+                                <!-- Lab Booking -->
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-cyan-200 transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="p-1.5 rounded-lg bg-cyan-100 text-cyan-600"><i data-lucide="microscope" class="w-3.5 h-3.5"></i></div>
+                                        <span class="text-xs font-semibold text-slate-700">Lab Booking</span>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 leading-tight">Book home-sampling & view results.</p>
+                                </div>
+
+                                <!-- Lifestyle Log -->
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-indigo-200 transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="p-1.5 rounded-lg bg-indigo-100 text-indigo-600"><i data-lucide="leaf" class="w-3.5 h-3.5"></i></div>
+                                        <span class="text-xs font-semibold text-slate-700">Lifestyle Log</span>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 leading-tight">Activity, sleep, & weight tracking.</p>
+                                </div>
+
+                                <!-- Community -->
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-pink-200 transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="p-1.5 rounded-lg bg-pink-100 text-pink-600"><i data-lucide="message-circle" class="w-3.5 h-3.5"></i></div>
+                                        <span class="text-xs font-semibold text-slate-700">Community</span>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 leading-tight">Squads & accountability partners.</p>
+                                </div>
+
+                                <!-- Mental Health -->
+                                <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-red-200 transition-colors">
+                                    <div class="flex items-center gap-2 mb-2">
+                                        <div class="p-1.5 rounded-lg bg-red-100 text-red-600"><i data-lucide="heart-pulse" class="w-3.5 h-3.5"></i></div>
+                                        <span class="text-xs font-semibold text-slate-700">Mental Health</span>
+                                    </div>
+                                    <p class="text-[10px] text-slate-500 leading-tight">Psychologist access & stress modules.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMN 2: THE HUB (GOVERNANCE) -->
+                    <div class="col-span-4 flex flex-col gap-4 relative">
+                        <div class="flex items-center gap-2 mb-1 justify-center">
+                            <div class="h-2.5 w-2.5 rounded-full bg-slate-800 ring-4 ring-slate-200"></div>
+                            <h2 class="text-sm font-bold text-slate-800 uppercase tracking-wide">The Brain (Governance)</h2>
+                        </div>
+
+                        <!-- Connector Arrows (Absolute) -->
+                        <div class="absolute top-[40%] left-0 w-8 h-8 -translate-x-full text-slate-300 flex items-center justify-center">
+                            <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                        </div>
+                        <div class="absolute top-[40%] right-0 w-8 h-8 translate-x-full text-slate-300 flex items-center justify-center">
+                            <i data-lucide="arrow-right" class="w-6 h-6"></i>
+                        </div>
+
+                        <div class="bg-gradient-to-b from-slate-900 to-slate-800 rounded-2xl p-5 border-none shadow-2xl flex-1 flex flex-col items-center text-center pt-8 relative z-10 overflow-hidden">
+                            <!-- Top Highlight -->
+                            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-cyan-400"></div>
+                            
+                            <div class="mb-2 px-3 py-1 rounded-full bg-white/10 text-[10px] font-bold uppercase tracking-widest text-cyan-300 shadow-inner">
+                                Loop In-House
+                            </div>
+                            <h3 class="text-2xl font-bold mb-6 text-white">Central Clinic Hub</h3>
+                            
+                            <!-- Doctor Profile -->
+                            <div class="w-full bg-white/5 rounded-2xl p-4 mb-8 border border-white/10 flex items-center gap-4 text-left backdrop-blur-sm">
+                                <div class="w-14 h-14 rounded-full bg-slate-200 overflow-hidden border-2 border-white/20 shrink-0 flex items-center justify-center">
+                                    <div class="w-full h-full bg-slate-300 flex items-center justify-center text-slate-500">
+                                        <i data-lucide="users" class="w-6 h-6"></i>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="text-sm font-bold text-white">Dr. dr. Made Ratna S.</div>
+                                    <div class="text-[10px] text-slate-400">Sp.PD-KEMD-FINASIM</div>
+                                    <div class="text-[10px] text-cyan-400 font-bold mt-0.5 uppercase">Lead Knowledge Expert</div>
+                                </div>
+                            </div>
+
+                            <!-- Core Functions -->
+                            <div class="grid grid-cols-2 gap-4 w-full mt-auto mb-4">
+                                <!-- Control Column -->
+                                <div class="bg-white/5 p-3 rounded-xl border border-white/10 text-left">
+                                    <div class="flex items-center gap-2 text-emerald-400 font-bold text-xs uppercase mb-2">
+                                        <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Control
+                                    </div>
+                                    <ul class="space-y-1.5">
+                                        <li class="text-[11px] text-slate-300 flex gap-2"><div class="w-1 h-1 bg-emerald-500 rounded-full mt-1.5"></div> Clinical SOPs</li>
+                                        <li class="text-[11px] text-slate-300 flex gap-2"><div class="w-1 h-1 bg-emerald-500 rounded-full mt-1.5"></div> Formulary</li>
+                                        <li class="text-[11px] text-slate-300 flex gap-2"><div class="w-1 h-1 bg-emerald-500 rounded-full mt-1.5"></div> Risk Scoring</li>
+                                    </ul>
+                                </div>
+                                
+                                <!-- Triage Column -->
+                                <div class="bg-white/5 p-3 rounded-xl border border-white/10 text-left">
+                                    <div class="flex items-center gap-2 text-blue-400 font-bold text-xs uppercase mb-2">
+                                        <i data-lucide="zap" class="w-3.5 h-3.5"></i> Triage
+                                    </div>
+                                    <ul class="space-y-1.5">
+                                        <li class="text-[11px] text-slate-300 flex gap-2"><div class="w-1 h-1 bg-blue-500 rounded-full mt-1.5"></div> Care Plan</li>
+                                        <li class="text-[11px] text-slate-300 flex gap-2"><div class="w-1 h-1 bg-blue-500 rounded-full mt-1.5"></div> Auto-Referral</li>
+                                        <li class="text-[11px] text-slate-300 flex gap-2"><div class="w-1 h-1 bg-blue-500 rounded-full mt-1.5"></div> Escalation</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Data Input Block -->
+                            <div class="w-full bg-white text-slate-900 rounded-xl p-3 flex items-center gap-3 shadow-lg">
+                                <div class="bg-slate-100 p-2 rounded-lg text-slate-600"><i data-lucide="database" class="w-4 h-4"></i></div>
+                                <div class="text-left">
+                                    <div class="text-[10px] font-bold uppercase text-slate-400">Input Source</div>
+                                    <div class="text-xs font-bold">TPA Claims Data (Enrollment)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- COLUMN 3: PARTNERS (EXECUTION) -->
+                    <div class="col-span-4 flex flex-col gap-4">
+                        <div class="flex items-center gap-2 mb-1 justify-end pr-1">
+                            <h2 class="text-sm font-bold text-slate-500 uppercase tracking-wide">Physical Execution</h2>
+                            <div class="h-2.5 w-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-100"></div>
+                        </div>
+
+                        <div class="flex flex-col h-full gap-4">
+                            
+                            <!-- Pharmacy -->
+                            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm border-l-4 border-l-emerald-400 hover:shadow-md transition-shadow">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div class="flex items-center gap-3">
+                                        <div class="p-2.5 bg-emerald-100 rounded-xl text-emerald-600"><i data-lucide="pill" class="w-5 h-5"></i></div>
+                                        <div>
+                                            <h3 class="font-bold text-base text-slate-900">Pharmacy</h3>
+                                            <p class="text-[10px] text-slate-500">Low-cost fulfillment</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-1 bg-slate-100 text-[10px] font-bold text-slate-500 rounded uppercase">Partner</span>
+                                </div>
+                                <div class="mt-3 pt-3 border-t border-slate-100 flex gap-2 flex-wrap">
+                                    <span class="px-2 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded">HALODOC</span>
+                                    <span class="px-2 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded">K24</span>
+                                </div>
+                            </div>
+
+                            <!-- Diagnostics -->
+                            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm border-l-4 border-l-emerald-400 hover:shadow-md transition-shadow">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div class="flex items-center gap-3">
+                                        <div class="p-2.5 bg-emerald-100 rounded-xl text-emerald-600"><i data-lucide="activity" class="w-5 h-5"></i></div>
+                                        <div>
+                                            <h3 class="font-bold text-base text-slate-900">Diagnostics</h3>
+                                            <p class="text-[10px] text-slate-500">Triggered testing</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-1 bg-slate-100 text-[10px] font-bold text-slate-500 rounded uppercase">Partner</span>
+                                </div>
+                                <div class="mt-3 pt-3 border-t border-slate-100 flex gap-2 flex-wrap">
+                                    <span class="px-2 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded">PRODIA</span>
+                                    <span class="px-2 py-1 bg-emerald-50 text-emerald-700 text-[10px] font-bold rounded">DIAGNOS</span>
+                                </div>
+                            </div>
+
+                            <!-- Specialists -->
+                            <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm border-l-4 border-l-orange-400 bg-orange-50/30 mt-auto hover:shadow-md transition-shadow">
+                                <div class="flex justify-between items-start mb-2">
+                                    <div class="flex items-center gap-3">
+                                        <div class="p-2.5 bg-orange-100 rounded-xl text-orange-600"><i data-lucide="building-2" class="w-5 h-5"></i></div>
+                                        <div>
+                                            <h3 class="font-bold text-base text-slate-900">Specialists</h3>
+                                            <p class="text-[10px] text-slate-500">Acute interventions</p>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-1 bg-orange-100 text-[10px] font-bold text-orange-600 rounded uppercase">Referral Only</span>
+                                </div>
+                                <div class="mt-3 pt-3 border-t border-orange-100/50 text-xs text-slate-600">
+                                    <strong>HOSPITALS:</strong> Surgery, Cardiac, Dialysis.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- PATIENT JOURNEY (FOOTER) -->
+                <div class="mt-8 pt-8 border-t border-slate-200">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">The Patient Journey</h3>
+                    <div class="flex flex-col lg:flex-row gap-6 lg:gap-0">
+                        
+                        <!-- Step 1 -->
+                        <div class="flex-1 relative group cursor-default">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md bg-slate-400">1</div>
+                                <div class="text-sm font-bold text-slate-800">Identification</div>
+                            </div>
+                            <div class="text-xs text-slate-500 leading-relaxed pl-11">
+                                TPA Claims Data identifies members with diabetes or obesity risk.
+                            </div>
+                            <div class="hidden lg:block absolute top-4 left-8 w-[calc(100%-2rem)] h-0.5 bg-slate-100 -z-10"></div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="flex-1 relative group cursor-default">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md bg-slate-900">2</div>
+                                <div class="text-sm font-bold text-slate-800">Triage & Plan</div>
+                            </div>
+                            <div class="text-xs text-slate-500 leading-relaxed pl-11">
+                                Hub assigns risk score (Low/Med/High) and sets care protocol.
+                            </div>
+                            <div class="hidden lg:block absolute top-4 left-8 w-[calc(100%-2rem)] h-0.5 bg-slate-100 -z-10"></div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="flex-1 relative group cursor-default">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md bg-blue-500">3</div>
+                                <div class="text-sm font-bold text-slate-800">Daily Management</div>
+                            </div>
+                            <div class="text-xs text-slate-500 leading-relaxed pl-11">
+                                Patient uses App for monitoring, coaching, and booking appointments.
+                            </div>
+                            <div class="hidden lg:block absolute top-4 left-8 w-[calc(100%-2rem)] h-0.5 bg-slate-100 -z-10"></div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="flex-1 relative group cursor-default">
+                            <div class="flex items-center gap-3 mb-2">
+                                <div class="w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md bg-emerald-500">4</div>
+                                <div class="text-sm font-bold text-slate-800">Triggered Care</div>
+                            </div>
+                            <div class="text-xs text-slate-500 leading-relaxed pl-11">
+                                Abnormal results automatically trigger lab or specialist referral.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </footer>
     </div>
-  );
-}
+
+    <!-- Initialize Lucide Icons -->
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
