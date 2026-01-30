@@ -8,8 +8,9 @@
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Lucide Icons (Standard Production Build) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons (Browser-Safe UMD Build) -->
+    <!-- This specific URL is required for GitHub Pages/Static hosting -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -38,7 +39,6 @@
 <body class="bg-slate-100 text-slate-800 min-h-screen p-4 lg:p-8">
 
     <!-- Scroll Container -->
-    <!-- Removed 'flex center' from body to prevent vertical clipping on small screens -->
     <div class="w-full overflow-x-auto pb-6">
         
         <!-- Main Slide Container -->
